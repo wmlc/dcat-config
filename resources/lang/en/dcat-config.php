@@ -17,6 +17,7 @@ return [
         'element' => 'Component',
         'option' => 'Options',
         'rule' => 'Rules',
+        'order' => 'Order',
     ],
 
 ];

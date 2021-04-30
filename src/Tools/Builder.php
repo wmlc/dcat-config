@@ -2,7 +2,6 @@
 
 namespace Ghost\DcatConfig\Tools;
 
-use Dcat\Admin\Actions\Action;
 use Dcat\Admin\Form;
 use Dcat\Admin\Widgets\Form as WidgetsForm;
 use Ghost\DcatConfig\DcatConfigServiceProvider;
@@ -147,11 +146,13 @@ class Builder
             'value' => null,
             'name' => $request->get('name'),
             'help' => $request->get('help'),
+            'order' => $request->get('order'),
             'element' => $request->get('element'),
             'options' => $options,
         ];
 
         $this->model = $this->model->map(function ($value) use ($data) {
+
 
             if ($value['key'] === $data['key']) {
                 $value['value'] = '';
@@ -159,6 +160,7 @@ class Builder
                 $value['help'] = $data['help'];
                 $value['element'] = $data['element'];
                 $value['options'] = $data['options'];
+                $value['order'] = $data['order'];
             }
 
             return $value;
@@ -184,7 +186,7 @@ class Builder
                 $update[$i]['value'] = collect($value)->map(function ($v) {
 
                     if (isset($v['_remove_'])) {
-                        if ((int) $v['_remove_'] === 1) {
+                        if ((int)$v['_remove_'] === 1) {
                             return 0;
                         }
                         unset($v['_remove_']);
@@ -246,8 +248,8 @@ class Builder
         $data = [];
         $attribute->each(function ($value, $item) use (&$data, $tab) {
 
-            if (null !== $value['key'] &&  1 !== (int)$value['_remove_']) {
-                $data[$item]['key'] = $tab.'.'.$value['key'];
+            if (null !== $value['key'] && 1 !== (int)$value['_remove_']) {
+                $data[$item]['key'] = $tab . '.' . $value['key'];
                 $data[$item]['name'] = $value['name'];
                 $data[$item]['value'] = '';
                 $data[$item]['help'] = $value['help'];
@@ -256,32 +258,32 @@ class Builder
                     'option' => $value['option'] ?? [],
                     'rule' => $value['rule'] ?? [],
                 ];
-                $data[$item]['order'] = $this->order() + $item + 1;
+                $data[$item]['order'] = $value['order'];
             }
         });
 
         $rules = [];
         $message = [];
         foreach ($data as $key => $val) {
-            $rules[$key.'.key'] = [
+            $rules[$key . '.key'] = [
                 'required',
                 'regex:/^[a-zA-Z_\.0-9]+$/',
                 function ($attribute, $value, $fail) {
                     $res = $this->all()->where('key', $value)->first();
 
                     if ($res) {
-                        return $fail(DcatConfigServiceProvider::trans('dcat-config.builder.key').' 已存在');
+                        return $fail(DcatConfigServiceProvider::trans('dcat-config.builder.key') . ' 已存在');
                     }
                 },
             ];
-            $rules[$key.'.name'] = 'required';
-            $rules[$key.'.element'] = 'required';
+            $rules[$key . '.name'] = 'required';
+            $rules[$key . '.element'] = 'required';
 
-            $message[$key.'.key.required'] = DcatConfigServiceProvider::trans('dcat-config.builder.key').' 不能为空';
-            $message[$key.'.key.regex'] = DcatConfigServiceProvider::trans('dcat-config.builder.key').' 只能包含字母数字';
+            $message[$key . '.key.required'] = DcatConfigServiceProvider::trans('dcat-config.builder.key') . ' 不能为空';
+            $message[$key . '.key.regex'] = DcatConfigServiceProvider::trans('dcat-config.builder.key') . ' 只能包含字母数字';
 
-            $message[$key.'.name.required'] = DcatConfigServiceProvider::trans('dcat-config.builder.name').' 不能为空';
-            $message[$key.'.element.required'] = DcatConfigServiceProvider::trans('dcat-config.builder.element').' 不能为空';
+            $message[$key . '.name.required'] = DcatConfigServiceProvider::trans('dcat-config.builder.name') . ' 不能为空';
+            $message[$key . '.element.required'] = DcatConfigServiceProvider::trans('dcat-config.builder.element') . ' 不能为空';
         }
 
         Validator::make($data, $rules, $message)->validate();
@@ -303,8 +305,7 @@ class Builder
             return $this;
         }
         $this->form->hidden('_method')->value('put');
-        $this->form->select('tab', DcatConfigServiceProvider::trans('dcat-config.builder.groups'))->options($tab)->value(function (
-        ) {
+        $this->form->select('tab', DcatConfigServiceProvider::trans('dcat-config.builder.groups'))->options($tab)->value(function () {
             return substr($this->model['key'], 0, strpos($this->model['key'], '.'));
         })->disable()->default($tab->keys()->first());
 
@@ -317,34 +318,32 @@ class Builder
             'radio',
             'checkbox',
         ], function ($form) {
-            $form->textarea('option', DcatConfigServiceProvider::trans('dcat-config.builder.option'))->value(function (
-            ) {
+            $form->textarea('option', DcatConfigServiceProvider::trans('dcat-config.builder.option'))->value(function () {
 
                 $d = collect($this->model['options']['option'])->pluck('value', 'key')->toArray();
 
                 $text = '';
                 foreach ($d as $k => $v) {
 
-                    $text .= $k.':'.$v."\r\n";
+                    $text .= $k . ':' . $v . "\r\n";
                 }
 
                 return $text;
             })->placeholder("例如:\r\nkey1:value1\r\nkey2:value2");
         })->options($this->option)->value($this->model['element'])->default('text');
-        $this->form->textarea('rule', DcatConfigServiceProvider::trans('dcat-config.builder.rule'))->value(function (
-        ) {
+        $this->form->textarea('rule', DcatConfigServiceProvider::trans('dcat-config.builder.rule'))->value(function () {
 
 
             $d = $this->model['options']['rule'];
             $text = '';
-            foreach ((array) $d as $k => $v) {
-                $text .= $v."\r\n";
+            foreach ((array)$d as $k => $v) {
+                $text .= $v . "\r\n";
             }
 
             return $text;
         });
         $this->form->text('help', DcatConfigServiceProvider::trans('dcat-config.builder.help'))->value($this->model['help']);
-
+        $this->form->number('order', DcatConfigServiceProvider::trans('dcat-config.builder.order'))->value($this->model['order']);
         return $this;
     }
 
@@ -380,6 +379,7 @@ class Builder
             })->options($this->option)->default('text');
             $form->textarea('rule', DcatConfigServiceProvider::trans('dcat-config.builder.rule'))->placeholder("例如:\r\nrequired\r\nmax:1\r\nmin:1\r\n");
             $form->text('help', DcatConfigServiceProvider::trans('dcat-config.builder.help'));
+            $form->number('order', DcatConfigServiceProvider::trans('dcat-config.builder.order'));
         });
 
         return $this;
@@ -427,7 +427,11 @@ class Builder
      */
     public function all()
     {
-        return collect(admin_setting_array("ghost::admin_config"));
+        $data = admin_setting_array("ghost::admin_config");
+        # order 升序排序
+        $sortArr = array_column($data, 'order');
+        array_multisort($sortArr, SORT_ASC, $data);
+        return collect($data);
     }
 
     /**

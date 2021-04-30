@@ -9,7 +9,7 @@
             <div class="collapse show pl-4" id="{{$k}}">
                 @foreach($v as $str )
                     <dl class="row">
-                        <dt class="col-sm-4 text-right">{{$str['name']}} :</dt>
+                        <dt class="col-sm-4 text-right">{{$str['name']}}({{$str['order']}}) :</dt>
                         <dd class="col-sm-5">
                             <span class="badge badge-secondary dd-toggle" data-title='{{$str['key']}}'>
                                 {{\Illuminate\Support\Str::limit("config('".$str['key']."')",25)}}
@@ -21,16 +21,13 @@
                                 <i class="feather icon-copy"></i>
                             </a>
 
-                            <a class="text-right text-success edit-form" href="{{ admin_url('config/'.$str['key'].'/edit') }}">
-{{--                                <span class='btn btn-primary edit-form' data-url=''></span>--}}
+                            <a class="text-right text-success edit-form"
+                               href="{!! admin_url('config/' . $str['key'] . '/edit') !!}">
                                 <i class="feather icon-edit"></i>
                             </a>
 
-{{--                            <span class='btn btn-primary edit-form' data-url="{{ admin_url('config/'.$str['key'].'/edit') }}" >--}}
-{{--                                <i class="feather icon-edit"></i>--}}
-{{--                            </span>--}}
-
-                            <a class="text-right text-danger delete" data-url="{{ admin_url('config/'.$str['key']) }}" href="#">
+                            <a class="text-right text-danger delete" data-url="{{ admin_url('config/'.$str['key']) }}"
+                               href="#">
                                 <i class="feather icon-trash-2"></i>
                             </a>
                         </dd>

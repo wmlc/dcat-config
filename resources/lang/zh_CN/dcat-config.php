@@ -17,6 +17,7 @@ return [
         'element' => '组件',
         'option' => '选项',
         'rule' => '规则',
+        'order' => '排序',
     ],
 
 ];

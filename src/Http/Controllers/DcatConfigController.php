@@ -167,7 +167,7 @@ class DcatConfigController extends Controller
 
         $array = collect(admin_setting_array('ghost::admin_config'))->sortBy('order')->map(function ($value) {
 
-            return ['key' => $value['key'], 'name' => $value['name']];
+            return ['key' => $value['key'], 'name' => $value['name'], 'order' => $value['order']];
         })->toArray();
 
         $data = [];
@@ -177,6 +177,7 @@ class DcatConfigController extends Controller
 
             $data[$key][$item]['key'] = $v['key'];
             $data[$key][$item]['name'] = $v['name'];
+            $data[$key][$item]['order'] = $v['order'];
         }
 
         return view('ghost.dcat-config::tree', ['data' => $data]);
