@@ -41,6 +41,6 @@
 	'number' => '数字',
 	'rate' => '费率',
 	'array'=>'数组'
-    ```
+```
 
 本扩展在[ghost/dcat-config](https://github.com/Ghost-die/dcat-config)基础上修改而来，感谢原作者
