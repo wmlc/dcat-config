@@ -1,14 +1,14 @@
 {
-    "name": "ghost/dcat-config",
+    "name": "wmlc/dcat-config",
     "description": "配置管理",
     "type": "library",
     "keywords": ["dcat-admin", "extension"],
-    "homepage": "https://github.com/ghost-die/dcat-config",
+    "homepage": "https://github.com/wmlc/dcat-config",
     "license": "MIT",
     "authors": [
         {
-            "name": "Ghost",
-            "email": "wangqun1436@gmail.com"
+            "name": "wml",
+            "email": "1290800466@qq.com"
         }
     ],
     "require": {
