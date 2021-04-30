@@ -38,7 +38,7 @@
     </div>
 </div>
 <script>
-    Dcat.ready(function (){
+    Dcat.ready(function () {
         $('.copyable').off('click').on('click', function (e) {
             let content = $(this).data('content');
             let $temp = $('<input>');
@@ -50,22 +50,23 @@
         });
 
         $('.delete').off('click').on('click', function (e) {
-
-            let url = $(this).data('url');
-            $.ajax(
-                {
-                    url: url,
-                    dataType: 'json',
-                    type:"post",
-                    delay: 250,
-                    data: {_method:'delete'},
-                    success: function (response) {
-                        Dcat.handleJsonResponse(response);
-                        return false;
-                    },
-                }
-            );
+            let mymessage = confirm("你确认要删除吗？");
+            if (mymessage === true) {
+                let url = $(this).data('url');
+                $.ajax(
+                    {
+                        url: url,
+                        dataType: 'json',
+                        type: "post",
+                        delay: 250,
+                        data: {_method: 'delete'},
+                        success: function (response) {
+                            Dcat.handleJsonResponse(response);
+                            return false;
+                        },
+                    }
+                );
+            }
         });
     });
-
 </script>
