@@ -1,6 +1,6 @@
 <?php
 
-use Ghost\DcatConfig\Http\Controllers;
+use Wmlc\DcatConfig\Http\Controllers;
 use Illuminate\Support\Facades\Route;
 
 Route::get('config', Controllers\DcatConfigController::class.'@index');

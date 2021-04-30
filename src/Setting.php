@@ -1,6 +1,6 @@
 <?php
 
-namespace Ghost\DcatConfig;
+namespace Wmlc\DcatConfig;
 
 use Dcat\Admin\Extend\Setting as Form;
 

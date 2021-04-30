@@ -1,10 +1,10 @@
 <?php
 
-namespace Ghost\DcatConfig\Tools;
+namespace Wmlc\DcatConfig\Tools;
 
 use Dcat\Admin\Form;
 use Dcat\Admin\Widgets\Form as WidgetsForm;
-use Ghost\DcatConfig\DcatConfigServiceProvider;
+use Wmlc\DcatConfig\DcatConfigServiceProvider;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Validator;
 
@@ -427,7 +427,7 @@ class Builder
      */
     public function all()
     {
-        $data = admin_setting_array("ghost::admin_config");
+        $data = admin_setting_array("wmlc::admin_config");
         # order 升序排序
         $sortArr = array_column($data, 'order');
         array_multisort($sortArr, SORT_ASC, $data);
@@ -439,6 +439,6 @@ class Builder
      */
     public function save()
     {
-        return admin_setting(["ghost::admin_config" => $this->model]);
+        return admin_setting(["wmlc::admin_config" => $this->model]);
     }
 }

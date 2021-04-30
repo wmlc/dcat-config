@@ -1,6 +1,6 @@
 <?php
 
-namespace Ghost\DcatConfig;
+namespace Wmlc\DcatConfig;
 
 use Dcat\Admin\Extend\ServiceProvider;
 
@@ -24,7 +24,7 @@ class DcatConfigServiceProvider extends ServiceProvider
     public function load()
     {
 
-        $array = collect(admin_setting_array('ghost::admin_config'))->map(function ($value) {
+        $array = collect(admin_setting_array('wmlc::admin_config'))->map(function ($value) {
             return ['key' => $value['key'], 'value' => $value['value']];
         })->toArray();
         foreach ($array as $config) {

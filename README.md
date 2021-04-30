@@ -7,7 +7,7 @@
 
 ### dcat config 配置
 
-> admin_setting 添加 ghost::admin_config 字段
+> admin_setting 添加 wmlc::admin_config 字段
 
 > key=>value形式保存
 

@@ -17,14 +17,14 @@
     },
     "autoload": {
         "psr-4": {
-            "Ghost\\DcatConfig\\": "src/"
+            "Wmlc\\DcatConfig\\": "src/"
         }
     },
     "extra": {
-        "dcat-admin": "Ghost\\DcatConfig\\DcatConfigServiceProvider",
+        "dcat-admin": "Wmlc\\DcatConfig\\DcatConfigServiceProvider",
         "laravel": {
             "providers": [
-                "Ghost\\DcatConfig\\DcatConfigServiceProvider"
+                "Wmlc\\DcatConfig\\DcatConfigServiceProvider"
             ]
         }
     }

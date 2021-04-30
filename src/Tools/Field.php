@@ -1,6 +1,6 @@
 <?php
 
-namespace Ghost\DcatConfig\Tools;
+namespace Wmlc\DcatConfig\Tools;
 
 use Illuminate\Support\Str;
 

@@ -1,12 +1,12 @@
 <?php
 
-namespace Ghost\DcatConfig\Http\Controllers;
+namespace Wmlc\DcatConfig\Http\Controllers;
 
 use Dcat\Admin\Form;
 use Dcat\Admin\Layout\Content;
 use Dcat\Admin\Widgets\Tooltip;
-use Ghost\DcatConfig\DcatConfigServiceProvider;
-use Ghost\DcatConfig\Tools\Builder;
+use Wmlc\DcatConfig\DcatConfigServiceProvider;
+use Wmlc\DcatConfig\Tools\Builder;
 use Illuminate\Routing\Controller;
 use Dcat\Admin\Layout\Row;
 
@@ -165,7 +165,7 @@ class DcatConfigController extends Controller
 
         $tab = collect(DcatConfigServiceProvider::setting('tab'))->pluck('value', 'key')->toArray();
 
-        $array = collect(admin_setting_array('ghost::admin_config'))->sortBy('order')->map(function ($value) {
+        $array = collect(admin_setting_array('wmlc::admin_config'))->sortBy('order')->map(function ($value) {
 
             return ['key' => $value['key'], 'name' => $value['name'], 'order' => $value['order']];
         })->toArray();
@@ -180,6 +180,6 @@ class DcatConfigController extends Controller
             $data[$key][$item]['order'] = $v['order'];
         }
 
-        return view('ghost.dcat-config::tree', ['data' => $data]);
+        return view('wmlc.dcat-config::tree', ['data' => $data]);
     }
 }

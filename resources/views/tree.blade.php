@@ -16,8 +16,9 @@
                             </span>
                         </dd>
                         <dd class="col-sm-3">
-{{--                            edit--}}
-                            <a class="text-right text-success copyable" title="已复制!" data-content='config("{{$str['key']}}")' href="#">
+                            {{--                            edit--}}
+                            <a class="text-right text-success copyable" title="已复制!"
+                               data-content='config("{{$str['key']}}")' href="#">
                                 <i class="feather icon-copy"></i>
                             </a>
 
