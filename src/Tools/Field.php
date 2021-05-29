@@ -170,6 +170,14 @@ class Field
         return $field->help($this->model['help'], $this->model['help'] ? 'feather icon-help-circle' : '')->value($this->model['value']);
     }
 
+    public function dateH()
+    {
+        $field = $this->form->datetime($this->model['tab'].'-'.$this->model['key'], $this->model['name'])->format('YYYY-MM-DD HH');
+        $field = $this->rule($field, $this->model['options']['rule']);
+
+        return $field->help($this->model['help'], $this->model['help'] ? 'feather icon-help-circle' : '')->value($this->model['value']);
+    }
+
     public function datetime()
     {
         $field = $this->form->datetime($this->model['tab'].'-'.$this->model['key'], $this->model['name']);

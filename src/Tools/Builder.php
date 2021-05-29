@@ -38,6 +38,7 @@ class Builder
         'color' => '颜色选择器',
         'time' => '时间',
         'date' => '日期',
+        'dateH' => '日期 + 小时 Y-m-d H',
         'datetime' => '时间日期',
         'file' => '文件上传',
         'image' => '图片上传',
