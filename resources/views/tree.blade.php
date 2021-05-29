@@ -1,9 +1,12 @@
 <div class="card card-body">
     <div class="highlight bg-gray-light">
         @foreach($data as $k=>$v)
+            @php
+                $v = array_values($v);
+            @endphp
             <div class="p-1" data-toggle="collapse" href="#{{$k}}" aria-controls="{{$k}}">
                 <span class="font-weight-bolder font-md-4">
-                   {{ $k }}
+                   {{ $k }} <span class="badge badge-secondary dd-toggle" style="background-color: #65b172; font-size:50%">{{"config('". explode('.', $v[0]['key'])[0] . ".*')"}}</span>
                 </span>
             </div>
             <div class="collapse show pl-4" id="{{$k}}">
@@ -12,7 +15,7 @@
                         <dt class="col-sm-4 text-right">{{$str['name']}}({{$str['order']}}) :</dt>
                         <dd class="col-sm-5">
                             <span class="badge badge-secondary dd-toggle" data-title='{{$str['key']}}'>
-                                {{\Illuminate\Support\Str::limit("config('".$str['key']."')",25)}}
+                                {{\Illuminate\Support\Str::limit(explode('.', $str['key'])[1],25)}}
                             </span>
                         </dd>
                         <dd class="col-sm-3">
